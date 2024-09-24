@@ -1,6 +1,14 @@
 import z from 'zod';
 
 
+//IMPORTANTE 
+
+
+// dentro desses parametros () eu posso colocar as mensagens de erro que acontecem no meu sistema EX:
+
+age: z.number(required_error: ' idade é obrogatoria',
+    invalid_type_error: 'idade precisa ser um Numero'
+) 
 // nessa parte vamos criar o padrão de dados que gostaria para a validação 
 const schema = z.object({
     // esse minimo que coloquei é o numero de letras
@@ -21,9 +29,24 @@ const schema = z.object({
     // temos tambem a opção de enviar um dado literal dessa forma o dado recebido precisa ser identico ao solicitado
 
     city: z.literal('Gramado'),
+   
+   
     // esse opcional do trimm serve para tirar os espações adicionais  no sistema
+ description: z.string().trim(),
 
-    description: z.string().trim()
+ // essa é  um importante validador, pois ele somente aceita uma das opções citadas acima
+
+ fuel: z.enum(['Gasolina','diesel','Etanol'])
+
+
+
+ //função de interseção para juntar os 2 dados  exemplo os dados da  pessoa é  tambem os dados do usuario
+
+
+ const cadastroCompleto = z.intersection(dados, outroparametro)
+
+ // tambem é possivel fazer dessa forma
+ const cadastroCompleto = dados.and(outroparametro)
 
 })
 
